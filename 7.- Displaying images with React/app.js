@@ -45,11 +45,11 @@ const dishObjects = dishes.map((dish, i) => ({
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Header name="Fernando" />
       <Main adjective="amazing" dishes={dishObjects} />
       <Footer year={new Date().getFullYear()} />
-    </div>
+    </React.Fragment>
   );
 }
 
