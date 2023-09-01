@@ -1,13 +1,14 @@
 import "./App.css";
-
-const [firstCity, secondCity, thirdCity] = ["Tokyo", "Tahoe City", "Bend"];
-
-console.log(thirdCity);
+import { useState } from "react";
 
 function App({ library }) {
+  const [emotion, setEmotion] = useState("happy");
+  console.log();
   return (
     <div className="App">
-      <h1>Hello from {library}</h1>
+      <h1>Current emotion is {emotion}</h1>
+      <button onClick={() => setEmotion("sad")}>Sad</button>
+      <button onClick={() => setEmotion("exited")}>Exited</button>
     </div>
   );
 }
