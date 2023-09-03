@@ -6,28 +6,36 @@ function GithubUSer({ name, location, avatar }) {
     <div>
       <h1>{name}</h1>
       <p>{location}</p>
-      <img src={avatar} height={150} />
+      <img src={avatar} height={150} alt="Avatar" />
     </div>
   );
 }
 
 function App() {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     fetch("https://api.github.com/users/FernandoStark18")
       .then((response) => response.json())
-      .then(setData);
+      .then(setData)
+      .then(() => setLoading(false))
+      .catch(setError);
   }, []);
 
-  if (data)
-    return (
-      <GithubUSer
-        name={data.name}
-        location={data.location}
-        avatar={data.avatar_url}
-      />
-    );
-  return <h1>{data}</h1>;
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <pre>{JSON.stringify(error)}</pre>;
+  if (!data) return null;
+
+  return (
+    <GithubUSer
+      name={data.name}
+      location={data.location}
+      avatar={data.avatar_url}
+    />
+  );
 }
 
 export default App;
